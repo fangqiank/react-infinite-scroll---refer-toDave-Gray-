@@ -1,19 +1,21 @@
 import React from 'react'
 
-export const Post = React.forwardRef(({post}, ref) => {
+export const Post = React.forwardRef((props, ref) => {
+	// console.log({props})
 	const postBody = (
 		<>
-			<h2>{post.title}</h2>
-			<p>{post.body}</p>
-			<p>Post ID: {post.id}</p>
+			<h2>{props.post.title}</h2>
+			<p>{props.post.body}</p>
+			<p>Post ID: {props.post.id}</p>
 		</>
 	)
 
-	const content = ref ? (
-	<article ref={ref}>{postBody}</article> 
-	) : (
-		<article>{postBody}</article>
+	return (		
+		ref ? (
+			<article ref={ref}>{postBody}</article> 
+		) 
+		: (
+				<article>{postBody}</article>
+		)
 	)
-
-	return content
 })

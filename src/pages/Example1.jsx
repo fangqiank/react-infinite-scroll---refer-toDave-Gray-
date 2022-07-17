@@ -17,20 +17,23 @@ export const Example1 = () => {
 	const lastPostRef = useCallback(post => {
 		if(isLoading) return 
 
+
 		if(intObserver.current) 
 			intObserver.current.disconnect()
+			
 
-			intObserver.current = new IntersectionObserver(entries => {
-				if(entries[0].isIntersecting && hasNextPage) {
-					console.log('We are near the last post')
-					setPageNum(prev => prev + 1)
-				}
-			})
+		intObserver.current = new IntersectionObserver(entries => {
+			if(entries[0].isIntersecting && hasNextPage) {
+				console.log('We are near the last post')
+				setPageNum(prev => prev + 1)
+			}
+		})
 
 		if(post) 
 			intObserver.current.observe(post)
 	},[isLoading, hasNextPage])
 
+	
 	if(isError)
 		return <p className='center'>Error: {error.message}</p>
 	
@@ -41,8 +44,7 @@ export const Example1 = () => {
 			</h1>
 			{results.map((post, idx) => {
 				if(results.length === idx + 1) {
-					// console.log('last element')
-					return <Post ref={lastPostRef} key={post.id} post={post} />	
+					return <Post ref={lastPostRef} key={post.id} post={post} />
 				}
 
 				return <Post key={post.id} post={post} />
